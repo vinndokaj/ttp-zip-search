@@ -15,16 +15,7 @@ function App() {
         </label>
         <button onClick={printResults}>Search</button>
       </div>
-      <div id='resultDiv'>
-      <Result 
-        locationText={1}
-        state={1}
-        estimatedPop={1}
-        lat={1}
-        long={1}
-        totalWages={1}
-        />
-      </div>
+      <div id='resultDiv'></div>
     </div>
   );
 }
@@ -40,8 +31,9 @@ function printResults(){
   })
   .then(zips => {
     const resultDiv = document.getElementById('resultDiv');
+    let results = [];
     for(let i = 0; i < zips.length; i++){
-      let newResult = <Result 
+      results[i] = <Result 
         locationText={zips[i].LocationText}
         state={zips[i].State}
         estimatedPop={zips[i].EstimatedPopulation}
@@ -49,8 +41,8 @@ function printResults(){
         long={zips[i].Long}
         totalWages={zips[i].TotalWages}
       />
-      ReactDOM.render(newResult, resultDiv);
     }
+    ReactDOM.render(results, resultDiv);
   })
   .catch(error => {
     console.log("error", error)
